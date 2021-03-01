@@ -44,6 +44,23 @@ export default function HomeScreen(props) {
           color="#DBF4F1"
         />
       </View>
+        
+    <View style={{flex:1,borderTopLeftRadius:60,overflow:'hidden'}}>
+
+    <MapView
+        
+        style={{flex:1, ...StyleSheet.absoluteFillObject,}}
+        region={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        }}
+      >
+      </MapView>
+
+    </View>
+      
     </LinearGradient>
   );
 }
@@ -68,4 +85,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 10,
   },
+  
 });
