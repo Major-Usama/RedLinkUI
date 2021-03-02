@@ -4,16 +4,17 @@ import {
   Text,
   View,
   SafeAreaView,
-  StatusBar,
   Platform,
   Dimensions,
+  StatusBar,
+  Image
 } from 'react-native';
-
 import { connect } from 'react-redux';
 const WIDTH = Dimensions.get('screen').width;
 const HEIGHT = Dimensions.get('screen').height;
+import {DrawerContentScrollView,DrawerItem} from '@react-navigation/drawer';
 
-function Sidemenu({lang}) {
+function DrawerContent(props) {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar
@@ -25,29 +26,20 @@ function Sidemenu({lang}) {
 
 
       <View style={styles.boxContainer}>
-
-      <View style={styles.login}>
-    <Text style={styles.loginText}>{lang ? "تسجيل الدخول":"Login"}</Text>
-
-
-      </View>
-
-      <View style={styles.login}>
-    <Text style={styles.loginText}>{lang ? "القائمة 2":"Menu 2"}</Text>
-
-
-      </View>
-
-
-      <View style={styles.login}>
-    <Text style={styles.loginText}>{lang ? "القائمة 2":"Menu 2"}</Text>
-
-
-      </View>
-
-      </View>
-            
-        </SafeAreaView>
+        <DrawerItem
+        label={props.lang ? "تسجيل الدخول":"Login"}
+        onPress={() => {props.navigation.navigate('HomeScreen')}}
+        />
+        <DrawerItem
+        label={props.lang ? "القائمة 2":"Menu 2"}
+        onPress={() => {props.navigation.navigate('HomeScreen')}}
+        />
+        <DrawerItem
+        label={props.lang ? "القائمة 3":"Menu 3"}
+        onPress={() => {props.navigation.navigate('HomeScreen')}}
+        />
+      </View>            
+      </SafeAreaView>
     )
 }
 
@@ -59,7 +51,6 @@ container:
     paddingTop:Platform.OS==='android'?StatusBar.currentHeight:0,
     backgroundColor:'#16AAC0'
 },
-
 boxContainer:
 {
     marginTop:HEIGHT*0.12,
@@ -89,4 +80,4 @@ function mapStateToProps(state) {
   return { lang: state.Reducer };
 }
 
-export default connect(mapStateToProps)(Sidemenu)
+export default connect(mapStateToProps)(DrawerContent)

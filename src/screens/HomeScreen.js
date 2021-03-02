@@ -18,8 +18,6 @@ const WIDTH = Dimensions.get('screen').width;
 const HEIGHT = Dimensions.get('screen').height;
 
 export default function HomeScreen({navigation}) {
-
-   
     
   return (
     <LinearGradient
@@ -38,7 +36,7 @@ export default function HomeScreen({navigation}) {
         <View />
         <Image source={require('../images/logo.png')} />
         <MaterialCommunityIcons
-          onPress={()=>navigation.navigate('Sidemenu')}
+          onPress={()=>navigation.openDrawer()}
           name="microsoft-xbox-controller-menu"
           size={40}
           color="#DBF4F1"

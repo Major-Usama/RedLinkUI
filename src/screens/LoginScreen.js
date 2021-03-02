@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,24 +8,32 @@ import {
   Platform,
   Dimensions,
   Image,
+  Switch,
   TextInput,
   TouchableOpacity
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-
+import { connect } from 'react-redux';
 
 const WIDTH = Dimensions.get('screen').width;
 const HEIGHT = Dimensions.get('screen').height;
 
-export default function LoginScreen({navigation}) {
-  const [value, onChangeText] = React.useState('');
-  const [pass, setPass] = React.useState('');
-  return (
-  
+class LoginScreen extends Component {
+  constructor(props){
+   super(props);
+   this.state={
+     value:"",
+     pass:'',
 
-      
-<LinearGradient  start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 0.2 }} style={styles.container} colors={['#1FC191', '#1AB5A9', '#16ABBC']} >
+    }
+  }
+  render(){
+    const {value,pass}= this.state
+    const {lang} = this.props
+    console.log("language:",lang);
+  return (      
+      <LinearGradient  start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 0.2 }} style={styles.container} colors={['#1FC191', '#1AB5A9', '#16ABBC']} >
        <StatusBar
         barStyle="dark-content"
         hidden={false}
@@ -36,67 +44,54 @@ export default function LoginScreen({navigation}) {
 
       <View style={styles.headerContainer}>
       <View/>
-      <Text style={styles.login}>Login</Text>
+      <Text style={styles.login}>{lang ? "تسجيل الدخول":"Login"}</Text>
       <AntDesign name="arrowright" size={30} color="#DBF4F1"/>
 
       </View>
 
       <View style={styles.bottomContainer}>
-      <Text style={{...styles.login,fontSize:29,color:'#55807D'}}>Login</Text>
+      <Text style={{...styles.login,fontSize:29,color:'#55807D'}}>{lang ? "تسجيل الدخول":"Login"}</Text>
 
       <View style={styles.usernameContainer}>
 
       <TextInput
-      placeholder="username"
+      placeholder={lang ? "اسم االمستخدم":"username"}
       style={{width:WIDTH-20,paddingLeft:20
-      
       }}
       onChangeText={text => onChangeText(text)}
       value={value}
     />
-
-
       </View>
-
-
-      <View style={{...styles.usernameContainer,marginTop:HEIGHT*0.04}}>
-
+      <View style={{...styles.usernameContainer,color:'black',marginTop:HEIGHT*0.04}}>
       <TextInput
-      placeholder="password"
+      placeholder={lang ? "كلمه السر":"password"}
       secureTextEntry={true}
       style={{width:WIDTH-20,paddingLeft:20
-      
       }}
       onChangeText={text => setPass(text)}
       value={pass}
     />
-
-
       </View>
-
-       <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')}>
+      <View style={{alignSelf:'flex-end',marginTop:10,alignItems:'center',flexDirection:'row'}}>
+        <Text style={{paddingHorizontal:15,fontSize:16}}>{lang ? "Change Language" :"تغيير اللغة"}</Text>
+      <Switch
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={"#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={this.props.toogleButtonAction}
+        value={lang}
+      />
+      </View>
+       <TouchableOpacity onPress={()=>this.props.navigation.navigate('HomeScreen')}>
       <View style={styles.loginButton}>
-        <Text style={styles.loginText}>Login</Text>
-       
-
+        <Text style={styles.loginText}>{lang ? "تسجيل الدخول":"Login"}</Text>
       </View>
       </TouchableOpacity>
 
-
-
       </View>
-
-      
-     
-
-
- 
-</LinearGradient>
-      
-
-     
-    
+</LinearGradient>    
   );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -141,7 +136,6 @@ const styles = StyleSheet.create({
     borderRadius:10,
     alignSelf:'center',
     marginTop:HEIGHT*0.08
-
   },
 
   loginButton:
@@ -162,3 +156,19 @@ const styles = StyleSheet.create({
   }
   
 });
+
+const mapStateToProps =(state)=>{
+  console.log("language",state);
+  return { lang: state.Reducer };
+} 
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      toogleButtonAction: () => 
+      dispatch({
+        type: 'TOOGLE_BUTTON',
+      })
+   };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginScreen);
