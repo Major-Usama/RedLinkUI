@@ -19,12 +19,12 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        </intent-filter>s
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <meta-data
      android:name="com.google.android.geo.API_KEY"
-     android:value="AIzaSyDV2_xy58r15K6TskZy4KWMuhUDVq67jqM/>
+     android:value="AIzaSyDV2_xy58r15K6TskZy4KWMuhUDVq67jqM"/>
     </application>
 
 </manifest>

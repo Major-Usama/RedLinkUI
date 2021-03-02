@@ -17,7 +17,7 @@ import MapView from 'react-native-maps';
 const WIDTH = Dimensions.get('screen').width;
 const HEIGHT = Dimensions.get('screen').height;
 
-export default function HomeScreen(props) {
+export default function HomeScreen({navigation}) {
 
    
     
@@ -38,7 +38,7 @@ export default function HomeScreen(props) {
         <View />
         <Image source={require('../images/logo.png')} />
         <MaterialCommunityIcons
-        
+          onPress={()=>navigation.navigate('Sidemenu')}
           name="microsoft-xbox-controller-menu"
           size={40}
           color="#DBF4F1"
